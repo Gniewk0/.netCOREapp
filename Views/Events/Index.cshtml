@@ -1,0 +1,65 @@
+﻿@model ProjektZaliczeniowyCore.Models.EventTypeViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Wydarzenia</h1>
+
+<p>
+    <a asp-action="Create">Utwórz nowe</a>
+</p>
+
+<form asp-controller="Events" asp-action="Index" method="get">
+    <p>
+        <select asp-for="EventType" asp-items="Model.Types">
+            <option value="">All</option>
+        </select>
+        Tytuł: <input type="text" name="SearchString" />
+        <input type="submit" value="Szukaj" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tytuł
+            </th>
+            <th>
+                Data
+            </th>
+            <th>
+                Rodzaj wydarzenia
+            </th>
+            <th>
+                Opis
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Events)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
